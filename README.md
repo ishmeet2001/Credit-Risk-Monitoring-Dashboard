@@ -30,11 +30,15 @@ python scripts/risk_rules.py
 python analysis/logistic_regression.py
 python analysis/roc_curve.py
 ```
-## Model Evaluation
-- Logistic regression is assessed with ROC/AUC to measure rank-ordering of default risk across thresholds.
-- `analysis/roc_curve.py` prints the AUC; rerun after any data or rule changes to refresh the plot.
 
-![ROC Curve](analysis/roc_curve.png)
+### ROC Curve Visualization
+
+![ROC Curve - Credit Default Prediction](analysis/roc_curve.png)
+
+The plot above shows our model's ROC curve with:
+- **Blue line**: Model performance (AUC = 0.6917)
+- **Red dashed line**: Diagonal baseline (random guessing at AUC = 0.5)
+- **Grid**: Clean background for easy threshold readability
 
 ## Dashboard
 - <img width="1191" height="771" alt="Screenshot 2026-01-18 at 6 49 22 PM" src="https://github.com/user-attachments/assets/c4c0b83a-5cc8-438b-97cd-d7038032b5c7" />
