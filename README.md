@@ -45,8 +45,28 @@ python analysis/roc_curve.py
 - Matplotlib for ROC visualization
 
 ## Repo Structure
-- `scripts/` — sampling, preprocessing, and rule-based risk scoring.
-- `analysis/` — modeling and ROC evaluation assets.
-- `analysis/early_warning_watchlist.twbx` — Tableau packaged workbook for the dashboard (add your file here).
-- `data/processed/` — intermediate and final CSV outputs (created by the pipeline).
-- `notebooks/` — profiling notebooks used to justify cleaning thresholds.
+```
+credit-risk-early-warning/
+├─ scripts/
+│  ├─ sample.py
+│  ├─ preprocess.py
+│  └─ risk_rules.py
+├─ analysis/
+│  ├─ logistic_regression.py
+│  ├─ roc_curve.py
+│  ├─ roc_curve.png
+│  └─ EWCRD.twbx   
+├─ data/
+│  ├─ raw/                           # place LendingClub extract (appl_accepted_20072019Q3.csv)
+│  └─ processed/
+│     ├─ sample_100k.csv
+│     ├─ clean_loans.csv
+│     ├─ risk_segments.csv
+│     ├─ early_warning_watchlist.csv
+│     ├─ kpi_summary.csv
+│     └─ risk_segments_with_predictions.csv
+├─ notebooks/
+│  └─ data_profiling.ipynb
+├─ requirements.txt
+└─ README.md
+```
