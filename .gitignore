@@ -1,0 +1,12 @@
+# Ignore raw data
+data/raw/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+venv/
+env/
+
+*.twb.autosave
+.DS_Store
