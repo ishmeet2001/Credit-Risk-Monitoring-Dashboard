@@ -1,5 +1,8 @@
 # Ignore raw data
 data/raw/
+data/processed/sample_100k.csv
+*.zip
+*.gz
 
 # Ignore Python cache
 __pycache__/
