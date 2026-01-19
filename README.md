@@ -30,10 +30,15 @@ python scripts/risk_rules.py
 python analysis/logistic_regression.py
 python analysis/roc_curve.py
 ```
+## Model Evaluation
+- Logistic regression is assessed with ROC/AUC to measure rank-ordering of default risk across thresholds.
+- `analysis/roc_curve.py` prints the AUC; rerun after any data or rule changes to refresh the plot.
+
+![ROC Curve](analysis/roc_curve.png)
 
 ## Dashboard
-- Tableau (Early Warning Watchlist): https://public.tableau.com/views/your-dashboard-link (replace with your share link; note if login is required).
-- Packaged workbook: add your `.twbx` export at `analysis/early_warning_watchlist.twbx` for offline sharing/versioning.
+- <img width="1191" height="771" alt="Screenshot 2026-01-18 at 6 49 22 PM" src="https://github.com/user-attachments/assets/c4c0b83a-5cc8-438b-97cd-d7038032b5c7" />
+
 
 ## KPIs & Watchlist
 - `data/processed/kpi_summary.csv` captures portfolio rows, baseline default rate, watchlist share, watchlist default rate, and lift vs baseline.
