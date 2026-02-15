@@ -14,8 +14,8 @@ env/
 *.twb.autosave
 .DS_Store
 .env
-*.png
 monitoring/reports/
+md/
 .ipynb_checkpoints
 .vscode/
 .idea/
