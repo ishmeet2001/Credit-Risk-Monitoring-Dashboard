@@ -14,7 +14,7 @@ This project uses raw LendingClub data to build a pipeline for data cleaning, ru
 
 ## 🏗️ Architecture
 
-![Architecture](architecture_diagram_standard.png)
+![Architecture](assets/architecture_diagram_standard.png)
 
 1.  **Ingestion**: Events flow through Redpanda.
 2.  **Processing**: A Python worker scores events and saves them to PostgreSQL.
@@ -28,10 +28,10 @@ This project includes a baseline Logistic Regression model (**AUC ≈ 0.69**) us
 ## 📊 Dashboards
 
 ### Engineering (Grafana)
-![Grafana](dashboard_screenshot_v3.png)
+![Grafana](assets/grafana_dashboard.png)
 
 ### Business (Streamlit)
-![Streamlit](business_dashboard_v2.png)
+![Streamlit](assets/business_dashboard.png)
 
 ## ⚙️ How to Run
 
