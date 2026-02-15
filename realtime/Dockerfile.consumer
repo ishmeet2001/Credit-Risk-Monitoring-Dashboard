@@ -1,0 +1,27 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source
+COPY realtime/ /app/realtime/
+COPY monitoring/ /app/monitoring/
+
+# Set working directory & path
+WORKDIR /app/realtime
+ENV PYTHONPATH=/app/realtime
+ENV PYTHONUNBUFFERED=1
+
+# Expose metrics port
+EXPOSE 9101
+
+# Command to run Consumer (with metrics)
+CMD ["python", "streaming/consumer.py"]

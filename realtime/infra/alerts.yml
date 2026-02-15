@@ -1,0 +1,47 @@
+groups:
+  - name: credit-risk-alerts
+    rules:
+      - alert: HighApiErrorRate
+        expr: sum(rate(credit_risk_requests_total{endpoint="/score",status="error"}[2m])) > 0.1
+        for: 1m
+        labels:
+          severity: page
+        annotations:
+          summary: "High API error rate on /score"
+          description: "Errors > 0.1 req/s for 1m"
+
+      - alert: HighScoringLatencyP95
+        expr: histogram_quantile(0.95, sum(rate(credit_risk_scoring_latency_seconds_bucket{endpoint="/score"}[5m])) by (le)) > 0.25
+        for: 2m
+        labels:
+          severity: warn
+        annotations:
+          summary: "High /score latency (p95)"
+          description: "p95 scoring latency > 250ms for 2m"
+
+      - alert: WatchlistSpike
+        expr: sum(rate(credit_risk_watchlist_total[2m])) > 0.5
+        for: 1m
+        labels:
+          severity: warn
+        annotations:
+          summary: "Watchlist spike detected"
+          description: "Watchlist decisions > 0.5/sec for 1m"
+
+      - alert: HighConsumerLag
+        expr: credit_risk_consumer_lag_seconds > 5
+        for: 2m
+        labels:
+          severity: warn
+        annotations:
+          summary: "High Consumer E2E Lag"
+          description: "Consumer lag is > 5s for 2m"
+
+      - alert: HighConsumerErrorRate
+        expr: sum(rate(credit_risk_consumer_events_total{status="db_error"}[2m])) / sum(rate(credit_risk_consumer_events_total[2m])) > 0.05
+        for: 2m
+        labels:
+          severity: page
+        annotations:
+          summary: "High Consumer DB Error Rate"
+          description: "More than 5% of consumer events failing DB insert for 2m"
