@@ -16,57 +16,27 @@ Credit risk monitoring workflow that turns raw LendingClub accepted-loan data in
 4) `analysis/logistic_regression.py` — trains a scaled logistic regression model, prints metrics, writes scored dataset → `data/processed/risk_segments_with_predictions.csv`.
 5) `analysis/roc_curve.py` — plots ROC using scored data → `analysis/roc_curve.png`.
 
-## Quickstart
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+## Real-Time Monitoring & Observability
+This project includes a real-time Kafka consumer pipeline instrumented with Prometheus and Grafana.
+- **Metrics**: Throughput, P95 Latency, E2E Lag, and Heartbeats are exposed on port `9101`.
+- **Dashboards**: A pre-configured Grafana dashboard provides real-time visibility into pipeline health.
+- **Drift Detection**: Automated data drift reports are generated every 30 minutes and persisted to S3.
+- **Alerting**: Automated alerts for high lag (>5s) and high DB error rates (>5%).
 
-# Optional: create a 100k sample if you have the raw LendingClub file
-python scripts/sample.py
-
-# Core pipeline
-python scripts/preprocess.py
-python scripts/risk_rules.py
-python analysis/logistic_regression.py
-python analysis/roc_curve.py
-```
-
-## Dashboard
-- Tableau (Early Warning Watchlist): https://public.tableau.com/views/your-dashboard-link (replace with your share link; note if login is required).
-- Packaged workbook: add your `.twbx` export at `analysis/early_warning_watchlist.twbx` for offline sharing/versioning.
-
-## KPIs & Watchlist
-- `data/processed/kpi_summary.csv` captures portfolio rows, baseline default rate, watchlist share, watchlist default rate, and lift vs baseline.
-- `data/processed/early_warning_watchlist.csv` lists borrowers meeting elevated risk rules (DTI/utilization + recent delinquency/inquiry).
-
-## Tech Stack
-- Python (pandas, numpy)
-- Scikit-learn for modeling and evaluation
-- Matplotlib for ROC visualization
+See [MONITORING_UPDATES.md](./MONITORING_UPDATES.md) for full implementation details.
 
 ## Repo Structure
 ```
 credit-risk-early-warning/
-├─ scripts/
-│  ├─ sample.py
-│  ├─ preprocess.py
-│  └─ risk_rules.py
-├─ analysis/
-│  ├─ logistic_regression.py
-│  ├─ roc_curve.py
-│  ├─ roc_curve.png
-│  └─ EWCRD.twbx   
-├─ data/
-│  ├─ raw/                           # place LendingClub extract (appl_accepted_20072019Q3.csv)
-│  └─ processed/
-│     ├─ sample_100k.csv
-│     ├─ clean_loans.csv
-│     ├─ risk_segments.csv
-│     ├─ early_warning_watchlist.csv
-│     ├─ kpi_summary.csv
-│     └─ risk_segments_with_predictions.csv
-├─ notebooks/
-│  └─ data_profiling.ipynb
+├─ scripts/                 # Batch processing scripts
+├─ realtime/                # Real-time pipeline (API, Consumer, Infra)
+│  ├─ app/                  # Business logic (preprocess, rules)
+│  ├─ streaming/            # Kafka consumer & metrics
+│  └─ infra/                # Docker compose, Prometheus, Grafana, Alerts
+├─ monitoring/              # Drift detection jobs
+├─ analysis/                # ML modeling and evaluation
+├─ data/                    # Local data storage (raw/processed)
+├─ MONITORING_UPDATES.md    # Detailed docs on recent instrumentation
 ├─ requirements.txt
 └─ README.md
 ```

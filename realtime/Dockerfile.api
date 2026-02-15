@@ -1,0 +1,32 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies (e.g., PostgreSQL driver deps)
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy root requirements (or specific ones)
+COPY requirements.txt .
+
+# Install dependencies (only what we need)
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY realtime/ /app/realtime/
+COPY monitoring/ /app/monitoring/
+
+# Set working directory to realtime so relative imports work
+WORKDIR /app/realtime
+
+# Environment variables (overridable via docker-compose)
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+# Expose port
+EXPOSE 8000
+
+# Command to run API
+CMD ["uvicorn", "app.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

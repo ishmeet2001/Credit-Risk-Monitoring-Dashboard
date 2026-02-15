@@ -1,0 +1,177 @@
+{
+    "id": null,
+    "uid": "credit-risk-rt",
+    "title": "Credit Risk Monitoring (Real-Time)",
+    "timezone": "browser",
+    "schemaVersion": 39,
+    "version": 1,
+    "refresh": "5s",
+    "panels": [
+        {
+            "type": "stat",
+            "title": "Requests/sec (score)",
+            "gridPos": {
+                "x": 0,
+                "y": 0,
+                "w": 6,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(credit_risk_requests_total{endpoint=\"/score\",status=\"ok\"}[1m]))",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "stat",
+            "title": "Errors/sec (score)",
+            "gridPos": {
+                "x": 6,
+                "y": 0,
+                "w": 6,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(credit_risk_requests_total{endpoint=\"/score\",status=\"error\"}[1m]))",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "stat",
+            "title": "Watchlist/sec",
+            "gridPos": {
+                "x": 12,
+                "y": 0,
+                "w": 6,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(credit_risk_watchlist_total[1m]))",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "timeseries",
+            "title": "Latency p95 (/score)",
+            "gridPos": {
+                "x": 0,
+                "y": 4,
+                "w": 9,
+                "h": 8
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.95, sum(rate(credit_risk_scoring_latency_seconds_bucket{endpoint=\"/score\"}[5m])) by (le))",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "timeseries",
+            "title": "Requests by status (/score)",
+            "gridPos": {
+                "x": 9,
+                "y": 4,
+                "w": 9,
+                "h": 8
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(credit_risk_requests_total{endpoint=\"/score\"}[1m])) by (status)",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "stat",
+            "title": "Consumer Throughput (OK)",
+            "gridPos": {
+                "x": 0,
+                "y": 12,
+                "w": 6,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(credit_risk_consumer_events_total{status=\"ok\"}[1m]))",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "stat",
+            "title": "Consumer DB Errors",
+            "gridPos": {
+                "x": 6,
+                "y": 12,
+                "w": 6,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "sum(rate(credit_risk_consumer_events_total{status=\"db_error\"}[1m]))",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "timeseries",
+            "title": "Consumer Latency P95 (ms)",
+            "gridPos": {
+                "x": 12,
+                "y": 12,
+                "w": 6,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "histogram_quantile(0.95, sum(rate(credit_risk_consumer_processing_latency_seconds_bucket[5m])) by (le)) * 1000",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "stat",
+            "title": "Liveness Lag (sec)",
+            "gridPos": {
+                "x": 18,
+                "y": 12,
+                "w": 3,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "time() - credit_risk_consumer_last_event_unixtime",
+                    "refId": "A"
+                }
+            ]
+        },
+        {
+            "type": "stat",
+            "title": "E2E Lag (ms)",
+            "gridPos": {
+                "x": 21,
+                "y": 12,
+                "w": 3,
+                "h": 4
+            },
+            "targets": [
+                {
+                    "expr": "credit_risk_consumer_lag_seconds * 1000",
+                    "refId": "A"
+                }
+            ]
+        }
+    ],
+    "templating": {
+        "list": []
+    },
+    "annotations": {
+        "list": []
+    }
+}

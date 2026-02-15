@@ -2,3 +2,17 @@ pandas==2.2.0
 numpy==1.26.3
 scikit-learn==1.3.2
 matplotlib==3.8.2
+
+# Streaming dependencies
+kafka-python
+psycopg2-binary
+python-dotenv
+# Dashboard
+streamlit
+
+# API dependencies (Step 6A)
+fastapi
+uvicorn
+prometheus-client
+pydantic
+boto3

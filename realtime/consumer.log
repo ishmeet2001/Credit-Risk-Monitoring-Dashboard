@@ -1,0 +1,22 @@
+Starting Prometheus metrics server on port 9101...
+✅ Consumer connected. Topic='loan_applications' bootstrap='localhost:9092'
+✅ Postgres connected. db='credit_risk' host='localhost:5433' user='credit'
+⚠️ Insert failed for loan_id=test_lag_2: can't adapt type 'numpy.int64'
+📥 processed=0 skipped=2
+⚠️ Insert failed for loan_id=test_lag_3: can't adapt type 'numpy.int64'
+📥 processed=0 skipped=3
+⚠️ Insert failed for loan_id=test_metrics_1771062325_1: can't adapt type 'numpy.int64'
+📥 processed=0 skipped=4
+⚠️ Insert failed for loan_id=test_metrics_1771062325_3: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062325_7: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062324_0: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062325_8: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062325_2: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062325_4: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062325_5: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062325_6: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_metrics_1771062325_9: can't adapt type 'numpy.int64'
+⚠️ Insert failed for loan_id=test_final_1771062406: can't adapt type 'numpy.int64'
+📥 processed=0 skipped=14
+⚠️ Insert failed for loan_id=test_now_1771062422: can't adapt type 'numpy.int64'
+📥 processed=0 skipped=15
